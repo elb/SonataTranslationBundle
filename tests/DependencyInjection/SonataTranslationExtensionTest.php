@@ -73,10 +73,6 @@ final class SonataTranslationExtensionTest extends AbstractExtensionTestCase
             'sonata_translation.checker.translatable',
             TranslatableChecker::class
         );
-        $this->assertContainerBuilderHasService(
-            'sonata_translation.filter.type.translation_field',
-            TranslationFieldFilter::class
-        );
     }
 
     /**
