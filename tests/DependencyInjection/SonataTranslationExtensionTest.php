@@ -65,6 +65,25 @@ final class SonataTranslationExtensionTest extends AbstractExtensionTestCase
      *
      * @group legacy
      */
+    public function testLoadServiceDefinitionWhenSonataDoctrinePHPCRAdminBundleIsRegistered(): void
+    {
+        $this->container->setParameter('kernel.bundles', ['SonataDoctrinePHPCRAdminBundle' => 'whatever']);
+        $this->load();
+        $this->assertContainerBuilderHasService(
+            'sonata_translation.checker.translatable',
+            TranslatableChecker::class
+        );
+        $this->assertContainerBuilderHasService(
+            'sonata_translation.filter.type.translation_field',
+            TranslationFieldFilter::class
+        );
+    }
+
+    /**
+     * NEXT_MAJOR: remove this annotation and corresponding deprecation notice.
+     *
+     * @group legacy
+     */
     public function testLoadServiceDefinitionNoCheckerTranslatable(): void
     {
         $this->container->setParameter('kernel.bundles', []);

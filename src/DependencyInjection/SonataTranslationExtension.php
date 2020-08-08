@@ -27,7 +27,7 @@ class SonataTranslationExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();
         $configuration = new Configuration();
@@ -47,7 +47,10 @@ class SonataTranslationExtension extends Extension
         }
 
         $bundles = $container->getParameter('kernel.bundles');
-        if (\array_key_exists('SonataDoctrineORMAdminBundle', $bundles)) {
+        if (\array_key_exists('SonataDoctrineORMAdminBundle', $bundles)
+            ||
+            \array_key_exists('SonataDoctrinePHPCRAdminBundle', $bundles)
+        ) {
             $loader->load('service_orm.xml');
         }
 
@@ -100,7 +103,7 @@ class SonataTranslationExtension extends Extension
     /**
      * @param array $translationTargets
      */
-    protected function configureChecker(ContainerBuilder $container, $translationTargets)
+    protected function configureChecker(ContainerBuilder $container, $translationTargets): void
     {
         if (!$container->hasDefinition('sonata_translation.checker.translatable')) {
             return;
