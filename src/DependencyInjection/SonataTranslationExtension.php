@@ -47,11 +47,18 @@ class SonataTranslationExtension extends Extension
         }
 
         $bundles = $container->getParameter('kernel.bundles');
-        if (\array_key_exists('SonataDoctrineORMAdminBundle', $bundles)
-            ||
-            \array_key_exists('SonataDoctrinePHPCRAdminBundle', $bundles)
-        ) {
+        $îsSonataAdmin = false;
+        if (\array_key_exists('SonataDoctrineORMAdminBundle', $bundles)) {
+            $îsSonataAdmin = true;
             $loader->load('service_orm.xml');
+        }
+
+        if (\array_key_exists('SonataDoctrinePHPCRAdminBundle', $bundles)) {
+            $îsSonataAdmin = true;
+        }
+
+        if ($îsSonataAdmin) {
+            $loader->load('service.xml');
         }
 
         $translationTargets = [];
